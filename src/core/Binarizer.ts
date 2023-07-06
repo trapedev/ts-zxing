@@ -30,6 +30,11 @@ import BitMatrix from './common/BitMatrix';
  */
 abstract class Binarizer {
 
+    /**
+     * 
+     * @param source テスト
+     */
+
     protected constructor(private source: LuminanceSource) { }
 
     public getLuminanceSource(): LuminanceSource {
