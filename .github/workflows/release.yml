@@ -29,10 +29,15 @@ jobs:
         mv dist/* .
         rmdir dist
 
-    - name: Push changes
+    - name: Set up Git user
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+
+    - name: Commit and push changes
+      run: |
         git add -A
-        git commit -m "Clean directory and move dist files"
-        git push
+        git commit -m "Clean directory and move dist files" || echo "No changes to commit"
+        git push origin HEAD:release
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
