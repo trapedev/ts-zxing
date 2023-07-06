@@ -1,0 +1,38 @@
+name: Clean and move dist files
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install dependencies and build
+      run: |
+        yarn install
+        yarn build
+
+    - name: Clean directory and move dist files
+      run: |
+        find . -maxdepth 1 ! -name 'dist' ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} \;
+        mv dist/* .
+        rmdir dist
+
+    - name: Push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A
+        git commit -m "Clean directory and move dist files"
+        git push
