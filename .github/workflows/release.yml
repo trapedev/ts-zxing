@@ -29,13 +29,9 @@ jobs:
         mv dist/* .
         rmdir dist
 
-    - name: Commit and push changes
-      run: |
-        git remote set-url origin https://github-actions:${{ secrets.GH_TOKEN }}@github.com/trapedev/ts-zxing
-        git config --global user.name "actions"
-        git config --global user.email "actions@users.noreply.github.com"
-        if (git diff --shortstat | grep '[0-9]'); then \
-          git add .; \
-          git commit -m "Release"; \
-          git push origin HEAD:${GITHUB_REF}; \
-        fi
+    - name: Push to Repo
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: push to repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
