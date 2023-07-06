@@ -24,7 +24,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @author dswitkin@google.com (Daniel Switkin)
  */
 var Binarizer = /** @class */ (function () {
-    // テスト
     function Binarizer(source) {
         this.source = source;
     }

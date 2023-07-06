@@ -261,7 +261,6 @@
    * @author dswitkin@google.com (Daniel Switkin)
    */
   class Binarizer {
-      // テスト
       constructor(source) {
           this.source = source;
       }
