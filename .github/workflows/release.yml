@@ -38,6 +38,7 @@ jobs:
       run: |
         git add -A
         git commit -m "Clean directory and move dist files" || echo "No changes to commit"
-        git push origin HEAD:release
+        git push
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GIT_AUTH: https://${{ secrets.GH_TOKEN }}@github.com
