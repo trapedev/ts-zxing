@@ -29,16 +29,13 @@ jobs:
         mv dist/* .
         rmdir dist
 
-    - name: Set up Git user
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-
     - name: Commit and push changes
       run: |
-        git add -A
-        git commit -m "Clean directory and move dist files" || echo "No changes to commit"
-        git push
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        GIT_AUTH: https://${{ secrets.GH_TOKEN }}@github.com
+        git remote set-url origin https://github-actions:${ secrets.GH_TOKEN }@github.com/trapedev/ts-zxing
+        git config --global user.name "actions"
+        git config --global user.email "actions@users.noreply.github.com"
+        if (git diff --shortstat | grep '[0-9]'); then \
+          git add .; \
+          git commit -m "GitHub Actions から差分を Push"; \
+          git push origin HEAD:${GITHUB_REF}; \
+        fi
